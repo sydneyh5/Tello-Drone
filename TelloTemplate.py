@@ -4,14 +4,11 @@
 
 import threading, socket, sys, time, subprocess
 
-
 # GLOBAL VARIABLES DECLARED HERE....
 host = ''
 port = 9000
-locaddr = (host,port)
-tello_address = ('192.168.10.1', 8889) # Get the Tello drone's address
-
-
+locaddr = (host, port)
+tello_address = ('192.168.10.1', 8889)  # Get the Tello drone's address
 
 # Creates a UDP socketd
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -26,53 +23,47 @@ def recv():
             data, server = sock.recvfrom(1518)
             print(data.decode(encoding="utf-8"))
         except Exception:
-            print ('\n****Keep Eye on Drone****\n')
+            print('\n****Keep Eye on Drone****\n')
             break
 
 
-def sendmsg(msg, sleep = 6):
+def sendmsg(msg, sleep=6):
     print("Sending: " + msg)
     msg = msg.encode(encoding="utf-8")
     sock.sendto(msg, tello_address)
     time.sleep(sleep)
 
+
 # recvThread create
 recvThread = threading.Thread(target=recv)
 recvThread.start()
 
-
-# CREATE FUNCTIONS HERE....
-def firstHoop():
-    sendmsg('up 30', 7)
-    sendmsg('forward 180', 7)
-
-def secondHoop():
-    sendmsg('left 20')
-    sendmsg('go 155 10 40 50', 7)
-
-#def thirdHoop()
-
-#def fourthHoop()
-
-
-print("\nSydney Hribar, Ranen Allishaw")
-print("Program Name: Drone Comp")
-print("Date: 1/10/2023")
+print("\nRanen Allishaw | Sydney Hribar")
+print("Program Name: Drone Compition")
+print("Date: JAN.10.2023")
 print("\n****CHECK YOUR TELLO WIFI ADDRESS****")
 print("\n****CHECK SURROUNDING AREA BEFORE FLIGHT****")
 ready = input('\nAre you ready to take flight: ')
-
 
 try:
     if ready.lower() == 'yes':
         print("\nStarting Drone!\n")
 
-        sendmsg('command', 0)
-        sendmsg('takeoff')
+        sendmsg('command', 8)
+        sendmsg('battery?')
+        sendmsg('takeoff', 9)
 
-        firstHoop()
-        time.sleep(2)
-        secondHoop()
+        sendmsg('up 30', 9)
+        sendmsg('forward 180', 9)
+        sendmsg('go 160 -25 50 60', 9)
+        sendmsg('curve 110 110 0 110 220 0 30', 10)
+        sendmsg('ccw 180', 10)
+        sendmsg('up 20', 9)
+        sendmsg('forward 140', 9)
+        sendmsg('right 25', 9)
+        sendmsg('go 160 20 -50 60', 9)
+        sendmsg('forward 100', 9)
+        sendmsg('flip b', 10)
 
         sendmsg('land')
 
