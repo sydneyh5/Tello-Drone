@@ -39,7 +39,7 @@ recvThread = threading.Thread(target=recv)
 recvThread.start()
 
 print("\nRanen Allishaw | Sydney Hribar")
-print("Program Name: Drone Compition")
+print("Program Name: Drone Composition")
 print("Date: JAN.10.2023")
 print("\n****CHECK YOUR TELLO WIFI ADDRESS****")
 print("\n****CHECK SURROUNDING AREA BEFORE FLIGHT****")
